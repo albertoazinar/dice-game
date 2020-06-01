@@ -3,8 +3,6 @@ var scores, roundScore, activePlayer, isGamePlaying;
 
 init();
 
-//document.getElementById('current-' + activePlayer).textContent = dice;
-
 document.querySelector('#roll').addEventListener('click', function(){ //anonymous function
     if(isGamePlaying){
         var dice = Math.floor(Math.random() * 6) + 1;
@@ -12,9 +10,8 @@ document.querySelector('#roll').addEventListener('click', function(){ //anonymou
 
         diceDOM.style.display = 'block';
 
-        diceDOM.src = 'dice-six-faces-'+dice+'.svg';
+        diceDOM.src = '_images/dice-six-faces-'+dice+'.svg';
 
-        //adding the roundScore if the dice value is not 1
         if(dice !== 1){
             roundScore += dice;
             document.querySelector('#current-'+activePlayer).textContent= roundScore;
@@ -26,21 +23,17 @@ document.querySelector('#roll').addEventListener('click', function(){ //anonymou
 });
 
 document.getElementById('hold').addEventListener('click', function(){
-    //save value from current score to Global score
     if(isGamePlaying){
         scores[activePlayer] += roundScore;
 
-        //update the UI
         document.getElementById('score-'+activePlayer).textContent = scores[activePlayer];
 
-        //check the winner
         if(scores[activePlayer]>= 5){
             document.querySelector('#name-'+activePlayer).textContent = 'Winner!';
             document.querySelector('.dice').style.display = 'none';
             document.querySelector('.player-'+activePlayer+'-panel').classList.add('.winner')
             isGamePlaying = false;
         }else{
-            //next player
             nextPlayer();
         }
     }
